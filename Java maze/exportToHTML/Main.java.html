@@ -1,0 +1,213 @@
+<html>
+<head>
+<title>Maze.Main.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #808080;}
+.s3 { color: #6a8759;}
+.s4 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Maze.Main.java</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">java.util.Scanner</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Random</span><span class="s0">;</span>
+<span class="s2">//import MazeEscape;</span>
+<span class="s0">public class </span><span class="s1">Maze.Main {</span>
+    <span class="s0">public static void </span><span class="s1">print_maze(</span><span class="s0">int</span><span class="s1">[][] maze) {</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int</span><span class="s1">[] row : maze) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">col : row) {</span>
+                <span class="s1">System.out.print(col + </span><span class="s3">&quot; &quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+            <span class="s1">System.out.println()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">System.out.println()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">input_maze(</span><span class="s0">int</span><span class="s1">[][] maze</span><span class="s0">, int </span><span class="s1">n) {</span>
+        <span class="s1">Scanner in = </span><span class="s0">new </span><span class="s1">Scanner(System.in)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s3">&quot;Enter the elements of the matrix&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">i &lt; n</span><span class="s0">; </span><span class="s1">i++)</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">j &lt; n</span><span class="s0">; </span><span class="s1">j++)</span>
+                <span class="s1">maze[i][j] = in.nextInt()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">make_escape(</span><span class="s0">int </span><span class="s1">row</span><span class="s0">, int </span><span class="s1">col</span><span class="s0">, int</span><span class="s1">[][] maze</span><span class="s0">, int </span><span class="s1">n) {</span>
+        <span class="s1">Random random = </span><span class="s0">new </span><span class="s1">Random()</span><span class="s0">;</span>
+        <span class="s0">int</span><span class="s1">[] direction_row = {-</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s1">}</span><span class="s0">;</span>
+        <span class="s0">int</span><span class="s1">[] direction_col = {</span><span class="s4">0</span><span class="s0">, </span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s1">-</span><span class="s4">1</span><span class="s1">}</span><span class="s0">;</span>
+        <span class="s1">maze[row][col] = </span><span class="s4">0</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">((row == </span><span class="s4">0 </span><span class="s1">|| col == </span><span class="s4">0</span><span class="s1">) || (row == n - </span><span class="s4">1 </span><span class="s1">|| col == n - </span><span class="s4">1</span><span class="s1">)) {</span>
+            <span class="s0">return;</span>
+        <span class="s1">}</span>
+        <span class="s0">int </span><span class="s1">x = random.nextInt(</span><span class="s4">4</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">next_row = row + direction_row[x]</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">next_col = col + direction_col[x]</span><span class="s0">;</span>
+        <span class="s1">make_escape(next_row</span><span class="s0">, </span><span class="s1">next_col</span><span class="s0">, </span><span class="s1">maze</span><span class="s0">, </span><span class="s1">n)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">fill_maze(</span><span class="s0">int</span><span class="s1">[][] maze</span><span class="s0">, int </span><span class="s1">n) {</span>
+        <span class="s1">Random random = </span><span class="s0">new </span><span class="s1">Random()</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">row = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">row &lt; n</span><span class="s0">; </span><span class="s1">row++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">col = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">col &lt; n</span><span class="s0">; </span><span class="s1">col++) {</span>
+                <span class="s1">maze[row][col] = </span><span class="s4">1</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s1">make_escape(n / </span><span class="s4">2</span><span class="s0">, </span><span class="s1">n / </span><span class="s4">2</span><span class="s0">, </span><span class="s1">maze</span><span class="s0">, </span><span class="s1">n)</span><span class="s0">;</span>
+        <span class="s1">System.out.println(</span><span class="s3">&quot;Created exit:&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">print_maze(maze)</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">row = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">row &lt; n</span><span class="s0">; </span><span class="s1">row++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">col = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">col &lt; n</span><span class="s0">; </span><span class="s1">col++) {</span>
+                <span class="s0">if </span><span class="s1">(!((row == </span><span class="s4">0 </span><span class="s1">|| col == </span><span class="s4">0</span><span class="s1">) || (row == n - </span><span class="s4">1 </span><span class="s1">|| col == n - </span><span class="s4">1</span><span class="s1">)) &amp;&amp; maze[row][col] != </span><span class="s4">0</span><span class="s1">) {</span>
+                    <span class="s1">maze[row][col] = random.nextInt(</span><span class="s4">2</span><span class="s1">)</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+
+    <span class="s0">public static void </span><span class="s1">backtrack(</span><span class="s0">int </span><span class="s1">row</span><span class="s0">, int </span><span class="s1">col</span><span class="s0">, int</span><span class="s1">[][] maze</span><span class="s0">, int</span><span class="s1">[] direction_row</span><span class="s0">, int</span><span class="s1">[] direction_col</span><span class="s0">,</span>
+                                 <span class="s0">int</span><span class="s1">[] count_moves</span><span class="s0">, int </span><span class="s1">num) {</span>
+        <span class="s1">maze[row][col] = </span><span class="s4">9</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">((row == </span><span class="s4">0 </span><span class="s1">|| col == </span><span class="s4">0</span><span class="s1">) || (row == maze.length - </span><span class="s4">1 </span><span class="s1">|| col == maze[row].length - </span><span class="s4">1</span><span class="s1">)) {</span>
+            <span class="s1">count_moves[num] = count_of_moves(maze)</span><span class="s0">;</span>
+            <span class="s0">return;</span>
+        <span class="s1">}</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s4">4</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">int </span><span class="s1">next_row = row + direction_row[i]</span><span class="s0">;</span>
+            <span class="s0">int </span><span class="s1">next_col = col + direction_col[i]</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">(maze[next_row][next_col] == </span><span class="s4">0</span><span class="s1">) {</span>
+                <span class="s1">backtrack(next_row</span><span class="s0">, </span><span class="s1">next_col</span><span class="s0">, </span><span class="s1">maze</span><span class="s0">, </span><span class="s1">direction_row</span><span class="s0">, </span><span class="s1">direction_col</span><span class="s0">, </span><span class="s1">count_moves</span><span class="s0">, </span><span class="s1">num)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s1">maze[row][col] = </span><span class="s4">0</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">print_best_escape(</span><span class="s0">int </span><span class="s1">row</span><span class="s0">, int </span><span class="s1">col</span><span class="s0">, int</span><span class="s1">[][] maze</span><span class="s0">, int</span><span class="s1">[] direction_row</span><span class="s0">, int</span><span class="s1">[] direction_col) {</span>
+        <span class="s1">maze[row][col] = </span><span class="s4">9</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">((row == </span><span class="s4">0 </span><span class="s1">|| col == </span><span class="s4">0</span><span class="s1">) || (row == maze.length - </span><span class="s4">1 </span><span class="s1">|| col == maze[row].length - </span><span class="s4">1</span><span class="s1">)) {</span>
+            <span class="s1">print_maze(maze)</span><span class="s0">;</span>
+            <span class="s0">return;</span>
+        <span class="s1">}</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s4">4</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">int </span><span class="s1">next_row = row + direction_row[i]</span><span class="s0">;</span>
+            <span class="s0">int </span><span class="s1">next_col = col + direction_col[i]</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">(maze[next_row][next_col] == </span><span class="s4">0</span><span class="s1">) {</span>
+                <span class="s1">print_best_escape(next_row</span><span class="s0">, </span><span class="s1">next_col</span><span class="s0">, </span><span class="s1">maze</span><span class="s0">, </span><span class="s1">direction_row</span><span class="s0">, </span><span class="s1">direction_col)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s1">maze[row][col] = </span><span class="s4">0</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static int</span><span class="s1">[][] copied_maze(</span><span class="s0">int</span><span class="s1">[][] maze) {</span>
+        <span class="s0">int</span><span class="s1">[][] tmp_maze = </span><span class="s0">new int</span><span class="s1">[maze.length][]</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">i &lt; maze.length</span><span class="s0">; </span><span class="s1">i++)</span>
+            <span class="s1">tmp_maze[i] = maze[i].clone()</span><span class="s0">;</span>
+        <span class="s0">return </span><span class="s1">tmp_maze</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static int </span><span class="s1">count_of_moves(</span><span class="s0">int</span><span class="s1">[][] maze) {</span>
+        <span class="s0">int </span><span class="s1">count = </span><span class="s4">0</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int</span><span class="s1">[] row : maze) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">col : row) {</span>
+                <span class="s0">if </span><span class="s1">(col == </span><span class="s4">9</span><span class="s1">) {</span>
+                    <span class="s1">count = count + </span><span class="s4">1</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">count</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">best_maze_escape(</span><span class="s0">int</span><span class="s1">[][] maze</span><span class="s0">, int </span><span class="s1">n) {</span>
+        <span class="s0">int</span><span class="s1">[][] tmp_maze</span><span class="s0">;</span>
+        <span class="s0">int</span><span class="s1">[] count_moves = </span><span class="s0">new int</span><span class="s1">[</span><span class="s4">8</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s0">int</span><span class="s1">[][] direction_row = </span><span class="s0">new int</span><span class="s1">[</span><span class="s4">8</span><span class="s1">][</span><span class="s4">4</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s0">int</span><span class="s1">[][] direction_col = </span><span class="s0">new int</span><span class="s1">[</span><span class="s4">8</span><span class="s1">][</span><span class="s4">4</span><span class="s1">]</span><span class="s0">;</span>
+
+        <span class="s1">direction_row[</span><span class="s4">0</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{-</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s1">}</span><span class="s0">;</span>
+        <span class="s1">direction_col[</span><span class="s4">0</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{</span><span class="s4">0</span><span class="s0">, </span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s1">-</span><span class="s4">1</span><span class="s1">}</span><span class="s0">;</span>
+
+        <span class="s1">direction_row[</span><span class="s4">1</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{-</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s1">}</span><span class="s0">;</span>
+        <span class="s1">direction_col[</span><span class="s4">1</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{</span><span class="s4">0</span><span class="s0">, </span><span class="s1">-</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s4">1</span><span class="s1">}</span><span class="s0">;</span>
+
+        <span class="s1">direction_row[</span><span class="s4">2</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s1">-</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s1">}</span><span class="s0">;</span>
+        <span class="s1">direction_col[</span><span class="s4">2</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{</span><span class="s4">0</span><span class="s0">, </span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s1">-</span><span class="s4">1</span><span class="s1">}</span><span class="s0">;</span>
+
+        <span class="s1">direction_row[</span><span class="s4">3</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s1">-</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s1">}</span><span class="s0">;</span>
+        <span class="s1">direction_col[</span><span class="s4">3</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{</span><span class="s4">0</span><span class="s0">, </span><span class="s1">-</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s4">1</span><span class="s1">}</span><span class="s0">;</span>
+
+        <span class="s1">direction_row[</span><span class="s4">4</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{</span><span class="s4">0</span><span class="s0">, </span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s1">-</span><span class="s4">1</span><span class="s1">}</span><span class="s0">;</span>
+        <span class="s1">direction_col[</span><span class="s4">4</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s1">-</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s1">}</span><span class="s0">;</span>
+
+        <span class="s1">direction_row[</span><span class="s4">5</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{</span><span class="s4">0</span><span class="s0">, </span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s1">-</span><span class="s4">1</span><span class="s1">}</span><span class="s0">;</span>
+        <span class="s1">direction_col[</span><span class="s4">5</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s1">-</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s1">}</span><span class="s0">;</span>
+
+        <span class="s1">direction_row[</span><span class="s4">6</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{</span><span class="s4">0</span><span class="s0">, </span><span class="s1">-</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s4">1</span><span class="s1">}</span><span class="s0">;</span>
+        <span class="s1">direction_col[</span><span class="s4">6</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s1">-</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s1">}</span><span class="s0">;</span>
+
+        <span class="s1">direction_row[</span><span class="s4">7</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{</span><span class="s4">0</span><span class="s0">, </span><span class="s1">-</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s4">1</span><span class="s1">}</span><span class="s0">;</span>
+        <span class="s1">direction_col[</span><span class="s4">7</span><span class="s1">] = </span><span class="s0">new int</span><span class="s1">[]{-</span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s0">, </span><span class="s4">1</span><span class="s0">, </span><span class="s4">0</span><span class="s1">}</span><span class="s0">;</span>
+
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s4">8</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s1">tmp_maze = copied_maze(maze)</span><span class="s0">;</span>
+            <span class="s1">backtrack(n / </span><span class="s4">2</span><span class="s0">, </span><span class="s1">n / </span><span class="s4">2</span><span class="s0">, </span><span class="s1">tmp_maze</span><span class="s0">, </span><span class="s1">direction_row[i]</span><span class="s0">, </span><span class="s1">direction_col[i]</span><span class="s0">, </span><span class="s1">count_moves</span><span class="s0">, </span><span class="s1">i)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">int </span><span class="s1">min_moves = count_moves[</span><span class="s4">0</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">max_moves = count_moves[</span><span class="s4">0</span><span class="s1">]</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">best = </span><span class="s4">0</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s4">0</span><span class="s0">; </span><span class="s1">i &lt; </span><span class="s4">8</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">if </span><span class="s1">(min_moves &gt; count_moves[i]) {</span>
+                <span class="s1">min_moves = count_moves[i]</span><span class="s0">;</span>
+                <span class="s1">best = i</span><span class="s0">;</span>
+            <span class="s1">}</span>
+            <span class="s0">if </span><span class="s1">(max_moves &lt; count_moves[i]) {</span>
+                <span class="s1">max_moves = count_moves[i]</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">if </span><span class="s1">(max_moves == </span><span class="s4">0</span><span class="s1">) {</span>
+            <span class="s1">System.out.println(</span><span class="s3">&quot;There is no way out&quot;</span><span class="s1">)</span><span class="s0">;</span>
+            <span class="s1">System.exit(</span><span class="s4">1</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s1">print_best_escape(n / </span><span class="s4">2</span><span class="s0">, </span><span class="s1">n / </span><span class="s4">2</span><span class="s0">, </span><span class="s1">maze</span><span class="s0">, </span><span class="s1">direction_row[best]</span><span class="s0">, </span><span class="s1">direction_col[best])</span><span class="s0">;</span>
+
+<span class="s2">//        {-1, 1, 0, 0};  {-1, 1, 0, 0};      {-1, 0, 1, 0};  {-1, 0, 1, 0};      { -1, 0, 0,1};  { -1, 0, 0,1};</span>
+<span class="s2">//        { 0, 0, 1,-1};  { 0, 0, -1,1};      { 0, 1, 0,-1};  {0, -1, 0, 1};      { 0, -1, 1,0};  {0; 1; -1; 0};</span>
+<span class="s2">//</span>
+<span class="s2">//        { 1,-1, 0, 0};  { 1,-1, 0, 0};      { 0;-1; 1; 0};  { 0;-1; 1; 0};      { 0, -1, 0,1};  { 0, -1, 0,1};</span>
+<span class="s2">//        { 0, 0,-1, 1};  { 0, 0, 1,-1};      { 0, -1, 1,0};  { 0, 1, -1,0};      { 1, 0, -1,0};  { -1, 0, 1,0};</span>
+
+<span class="s2">//        ...</span>
+<span class="s2">//        ...</span>
+
+<span class="s2">//        ...</span>
+<span class="s2">//        ...</span>
+<span class="s2">//        24 pair</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public static void </span><span class="s1">main(String[] args) {</span>
+        <span class="s1">Scanner scan = </span><span class="s0">new </span><span class="s1">Scanner(System.in)</span><span class="s0">;</span>
+        <span class="s1">System.out.print(</span><span class="s3">&quot;n: &quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s0">int </span><span class="s1">n = scan.nextInt()</span><span class="s0">;</span>
+        <span class="s0">int</span><span class="s1">[][] maze = </span><span class="s0">new int</span><span class="s1">[n][n]</span><span class="s0">;</span>
+
+        <span class="s2">//input_maze(maze, n);</span>
+
+        <span class="s1">fill_maze(maze</span><span class="s0">, </span><span class="s1">n)</span><span class="s0">;</span>
+
+        <span class="s1">System.out.println(</span><span class="s3">&quot;Maze:&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">print_maze(maze)</span><span class="s0">;</span>
+
+        <span class="s1">System.out.println(</span><span class="s3">&quot;Our escape:&quot;</span><span class="s1">)</span><span class="s0">;</span>
+        <span class="s1">best_maze_escape(copied_maze(maze)</span><span class="s0">, </span><span class="s1">n)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+</pre>
+</body>
+</html>
